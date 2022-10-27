@@ -1,39 +1,37 @@
 from complexnumber import ComplexNumber
-import re
 
 
-# # for example, valid expression is 23.43+48.32j / 32.49-43j - note position of whitespaces
-# while True:
-#     user_input = input("Enter your expression involving complex numbers >> ")
-#     try:
-#         first_num_as_str, op, second_num_as_str = user_input.split()
-#     except ValueError:
-#         print("Wrong convention of input")
-#     else:
-#
-#         if op == '+':
-#             result = first_num + second_num
-#         elif op == '-':
-#             result = first_num - second_num
-#         elif op == '*':
-#             result = first_num * second_num
-#         elif op == '/':
-#             result = first_num / second_num
-#         else:
-#             raise RuntimeError("Invalid operator provided")
-#
-#         print(f"The result of {first_num} {op} {second_num} == {result}")
+class Calculator:
 
-
-def parse_complex_number(complex_num):
-    split_ = re.split(r'[+-]', complex_num)
-    return split_
-
-
+    @classmethod
+    def ask_for_number(cls):
+        user_input = input("Enter expression in format: 2.0+3.0j - 3.9-1.1j\n")
+        try:
+            first_num_as_str, op, second_num_as_str = user_input.split()
+        except ValueError:
+            print("Wrong input expression, check whitespace positions")
+        else:
+            first_num = ComplexNumber.str_format(first_num_as_str)
+            second_num = ComplexNumber.str_format(second_num_as_str)
+            if op == '+':
+                result = first_num + second_num
+            elif op == '-':
+                result = first_num - second_num
+            elif op == '*':
+                result = first_num * second_num
+            elif op == '/':
+                result = first_num / second_num
+            else:
+                raise ValueError("Wrong operator, or operator not supported")
+            print(f"{first_num} {op} {second_num} = {result}")
 
 
 if __name__ == "__main__":
-    a = "23.43-48.32j / 32.49-43j"
-    first_num_as_str, op, second_num_as_str = a.split(" ")
-    print(parse_complex_number("23.43+48.32j"))
+
+    while True:
+        try:
+            Calculator.ask_for_number()
+        except KeyboardInterrupt:
+            print("Interrupted by keyboard ctrl+c")
+            break
 
