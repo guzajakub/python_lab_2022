@@ -3,6 +3,10 @@ import xml.sax
 
 class XMLHandler(xml.sax.ContentHandler):
 
+    """
+    Class that parses XML to a nice format to display
+    """
+
     def __init__(self):
         self.current = ""
         self.name = ""
@@ -13,7 +17,8 @@ class XMLHandler(xml.sax.ContentHandler):
     def startElement(self, name, attrs):
         self.current = name
         if name == "food":
-            print(f"{attrs['id']} food is: ")
+            num = int(attrs['id'])
+            print(f"\n{num} breakfast: ")
 
     def characters(self, content):
         if self.current == "name":
@@ -35,11 +40,6 @@ class XMLHandler(xml.sax.ContentHandler):
         elif self.current == "calories":
             print(f"Calories: {self.calories}")
         self.current = ""
-
-    # def changeElement(self, name, attrs):
-    #     self.current = name
-    #     if name == "food":
-    #         print(f"{attrs['id']} food is: ")
 
 
 if __name__ == "__main__":
